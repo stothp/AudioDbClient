@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.audiodbclient.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_artistListFragment"
+            app:destination="@id/artistListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistListFragment"
+        android:name="com.example.audiodbclient.ArtistListFragment"
+        android:label="fragment_artist_list"
+        tools:layout="@layout/fragment_artist_list" >
+        <argument
+            android:name="search_string"
+            app:argType="string" />
+    </fragment>
+</navigation>

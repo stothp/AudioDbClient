@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AudioDbClient</string>
+    <string name="artist_placeholder">előadó neve</string>
+    <string name="search_button_text">Előadó keresése</string>
+    <string name="title">Keresés a TheAudioDB adatbázisában</string>
+    <string name="no_result">Nincs találat... :(</string>
+</resources>
