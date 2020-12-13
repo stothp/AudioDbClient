@@ -1,5 +1,7 @@
 package com.example.audiodbclient
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -7,8 +9,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.example.audiodbclient.databinding.FragmentMainBinding
 
@@ -27,6 +33,22 @@ class MainFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    fun closeKeyboard() {
+        val view = activity?.currentFocus
+        if (view != null) {
+            val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    fun openKeyboard() {
+        val view = activity?.currentFocus
+        if (view != null) {
+            val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            //imm.showSoftInput(view.windowToken, 0)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -44,16 +66,19 @@ class MainFragment : Fragment() {
             R.layout.fragment_main, container, false
         )
 
+        binding.artistName.requestFocus()
+
         binding.button.setOnClickListener{ view ->
             run {
-                Log.i ("Info", binding.artistName.text.toString())
+//                Log.i ("Info", binding.artistName.text.toString())
                 if (binding.artistName.text.toString().trim().isEmpty()){
 //                    var toast: Toast = Toast.makeText(activity?.applicationContext, "Töltsd ki az előadót!", Toast.LENGTH_LONG)
 //                    toast.setGravity(Gravity.TOP or Gravity.CENTER, 0, 0)
 //                    toast.show()
                 } else {
+                    closeKeyboard()
                     view.findNavController()
-                        .navigate(R.id.action_mainFragment_to_artistListFragment)
+                        .navigate(MainFragmentDirections.actionMainFragmentToArtistListFragment(binding.artistName.text.toString()))
                 }
             }
         }
