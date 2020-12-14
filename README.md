@@ -14,4 +14,5 @@ The development is in very early stage. Currently supports the following functio
 - Two fragments: main search and artist list
 - Safe args to pass the search string to the artist list
 - Web request runs on a background thread
-- Artists are printed to the log
+- The artists are printed to the log
+- The artists are displayed in a RecyclerView
