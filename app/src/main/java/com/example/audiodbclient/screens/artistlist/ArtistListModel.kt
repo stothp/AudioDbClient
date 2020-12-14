@@ -2,9 +2,9 @@ package com.example.audiodbclient.screens.artistlist
 
 import android.util.Log
 import androidx.core.text.htmlEncode
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.audiodbclient.Artist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,10 +13,10 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class ArtistListModel : ViewModel(){
-    private val _artists = MutableLiveData<MutableList<String>>()
+    val _artists = MutableLiveData<MutableList<Artist>>()
     // This should be converted to List<String> somehow
-    val artists: LiveData<MutableList<String>>
-        get() = _artists
+//    val artists: LiveData<MutableList<Artist>>
+//        get() = _artists
 
     init {
 
@@ -44,17 +44,20 @@ class ArtistListModel : ViewModel(){
             var jsonString = getTextFromUrl("https://theaudiodb.com/api/v1/json/1/search.php?s=".plus(searchString.replace(" ", "_").plus("%").htmlEncode()))
             val obj = JSONObject(jsonString)
 
-            _artists.value?.clear()
+//            _artists.value?.clear()
+            var artistList = mutableListOf<Artist>()
 
             if (!obj.isNull("artists")) {
-                var artists = obj.getJSONArray("artists")
+                var artistsJSON = obj.getJSONArray("artists")
 
-                for (i in IntRange(0, artists.length() - 1)) {
-                    var artist = artists.getJSONObject(i).getString("strArtist")
-                    Log.i("Info", artist)
-                    _artists.value?.add(artist)
+                for (i in IntRange(0, artistsJSON.length() - 1)) {
+                    var a = artistsJSON.getJSONObject(i).getString("strArtist")
+                    Log.i("Info", a)
+                    artistList.add(Artist(a))
                 }
             }
+
+            _artists.postValue(artistList)
         }
     }
 }

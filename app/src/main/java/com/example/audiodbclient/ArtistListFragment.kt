@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.WorkerThread
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.audiodbclient.databinding.FragmentArtistListBinding
 import com.example.audiodbclient.screens.artistlist.ArtistListModel
@@ -52,6 +53,16 @@ class ArtistListFragment : Fragment() {
             inflater, R.layout.fragment_artist_list, container, false)
 
         viewModel = ViewModelProvider(this).get(ArtistListModel::class.java)
+
+        val adapter = ArtistAdapter()
+        binding.artistList.adapter = adapter
+        viewModel._artists.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+                Log.i("Info", "Observed")
+            }
+            Log.i("Info", "Size: ".plus(it?.size))
+        })
 
         viewModel.getArtists(args.searchString)
 
