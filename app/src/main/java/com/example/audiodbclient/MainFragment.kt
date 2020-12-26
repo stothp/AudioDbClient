@@ -72,10 +72,11 @@ class MainFragment : Fragment() {
             run {
 //                Log.i ("Info", binding.artistName.text.toString())
                 if (binding.artistName.text.toString().trim().isEmpty()){
-//                    var toast: Toast = Toast.makeText(activity?.applicationContext, "Töltsd ki az előadót!", Toast.LENGTH_LONG)
-//                    toast.setGravity(Gravity.TOP or Gravity.CENTER, 0, 0)
-//                    toast.show()
+                    var toast: Toast = Toast.makeText(activity?.applicationContext, "Töltsd ki az előadót!", Toast.LENGTH_LONG)
+                    toast.setGravity(Gravity.TOP or Gravity.CENTER, 0, 0)
+                    toast.show()
                 } else {
+
                     closeKeyboard()
                     view.findNavController()
                         .navigate(MainFragmentDirections.actionMainFragmentToArtistListFragment(binding.artistName.text.toString()))
