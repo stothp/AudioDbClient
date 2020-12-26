@@ -4,4 +4,5 @@
     <string name="search_button_text">Előadó keresése</string>
     <string name="title">Keresés a TheAudioDB adatbázisában</string>
     <string name="no_result">Nincs találat... :(</string>
+    <string name="searching">Keresés folyamatban...</string>
 </resources>

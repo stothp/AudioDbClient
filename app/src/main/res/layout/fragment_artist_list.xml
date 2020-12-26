@@ -18,6 +18,12 @@
             android:layout_height="wrap_content"
             android:text="@string/no_result" />
 
+        <TextView
+            android:id="@+id/searching_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/searching" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/artist_list"
             android:layout_width="match_parent"

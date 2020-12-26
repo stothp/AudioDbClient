@@ -26,7 +26,7 @@ class ArtistListModel : ViewModel(){
         super.onCleared()
     }
 
-    public suspend fun getTextFromUrl(urlText : String) : String {
+    suspend fun getTextFromUrl(urlText : String) : String {
         val url = URL(urlText)
 
         with(url.openConnection() as HttpURLConnection) {

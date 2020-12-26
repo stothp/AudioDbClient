@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.annotation.WorkerThread
 import androidx.databinding.DataBindingUtil
@@ -52,6 +54,9 @@ class ArtistListFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_artist_list, container, false)
 
+        binding.searchingText.visibility = VISIBLE
+        binding.noResultText.visibility = GONE
+
         viewModel = ViewModelProvider(this).get(ArtistListModel::class.java)
 
         val adapter = ArtistAdapter()
@@ -59,6 +64,12 @@ class ArtistListFragment : Fragment() {
         viewModel._artists.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it
+                binding.searchingText.visibility = GONE
+                if (it?.size > 0){
+                    binding.noResultText.visibility = GONE
+                } else {
+                    binding.noResultText.visibility = VISIBLE
+                }
                 Log.i("Info", "Observed")
             }
             Log.i("Info", "Size: ".plus(it?.size))
