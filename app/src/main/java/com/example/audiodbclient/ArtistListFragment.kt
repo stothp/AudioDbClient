@@ -54,25 +54,22 @@ class ArtistListFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_artist_list, container, false)
 
-        binding.searchingText.visibility = VISIBLE
-        binding.noResultText.visibility = GONE
+        binding.results.text = getString(R.string.searching)
 
         viewModel = ViewModelProvider(this).get(ArtistListModel::class.java)
 
         val adapter = ArtistAdapter()
         binding.artistList.adapter = adapter
-        viewModel._artists.observe(viewLifecycleOwner, Observer {
+        viewModel.artists.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it
-                binding.searchingText.visibility = GONE
-                if (it?.size > 0){
-                    binding.noResultText.visibility = GONE
-                } else {
-                    binding.noResultText.visibility = VISIBLE
-                }
                 Log.i("Info", "Observed")
             }
             Log.i("Info", "Size: ".plus(it?.size))
+        })
+
+        viewModel.resultsAsString.observe(viewLifecycleOwner, Observer{
+            binding.results.text = it + " " + getString(R.string.result_count)
         })
 
         viewModel.getArtists(args.searchString)
