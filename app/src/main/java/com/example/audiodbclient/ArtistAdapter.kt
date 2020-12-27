@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class ArtistAdapter: RecyclerView.Adapter<TextItemViewHolder>() {
-    var data =  listOf<Artist>()
+    var data = listOf<Artist>()
         set(value) {
             field = value
             notifyDataSetChanged()

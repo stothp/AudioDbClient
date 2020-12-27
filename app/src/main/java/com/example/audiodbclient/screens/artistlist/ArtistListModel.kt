@@ -2,7 +2,9 @@ package com.example.audiodbclient.screens.artistlist
 
 import android.util.Log
 import androidx.core.text.htmlEncode
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.audiodbclient.Artist
 import kotlinx.coroutines.Dispatchers
@@ -14,10 +16,19 @@ import java.net.URL
 
 class ArtistListModel : ViewModel(){
     val _artists = MutableLiveData<MutableList<Artist>>()
-    // This should be converted to List<String> somehow
-//    val artists: LiveData<MutableList<Artist>>
-//        get() = _artists
+    val _results = MutableLiveData<Int>()
+            
+    val resultsAsString = Transformations.map(_results) { i ->
+        if (i == 0) {
+            "Nincs"
+        } else {
+            i.toString()
+        }
+    }
 
+    // This should be converted to List<String> somehow
+    val artists: LiveData<MutableList<Artist>>
+        get() = _artists
     init {
 
     }
@@ -58,6 +69,7 @@ class ArtistListModel : ViewModel(){
             }
 
             _artists.postValue(artistList)
+            _results.postValue(artistList.size)
         }
     }
 }

@@ -5,4 +5,6 @@
     <string name="title">Keresés a TheAudioDB adatbázisában</string>
     <string name="no_result">Nincs találat... :(</string>
     <string name="searching">Keresés folyamatban...</string>
+    <string name="result_count">találat:</string>
+    <string name="none">Nincs</string>
 </resources>
