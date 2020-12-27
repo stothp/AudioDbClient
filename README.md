@@ -16,3 +16,5 @@ The development is in very early stage. Currently supports the following functio
 - Web request runs on a background thread
 - The artists are printed to the log
 - The artists are displayed in a RecyclerView
+- LiveData transformation (resultsAsString in ArtistListModel)
+- DiffUtil in ArtistAdapter 
