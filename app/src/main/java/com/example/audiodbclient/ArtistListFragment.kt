@@ -62,7 +62,7 @@ class ArtistListFragment : Fragment() {
         binding.artistList.adapter = adapter
         viewModel.artists.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.data = it
+                adapter.submitList(it)
                 Log.i("Info", "Observed")
             }
             Log.i("Info", "Size: ".plus(it?.size))
